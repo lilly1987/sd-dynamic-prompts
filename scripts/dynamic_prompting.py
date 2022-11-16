@@ -31,7 +31,9 @@ from prompts import prompt_writer
 from ui import wildcards_tab
 
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 logger.setLevel(logging.INFO)
 
 is_debug = getattr(opts, "is_debug", False)
