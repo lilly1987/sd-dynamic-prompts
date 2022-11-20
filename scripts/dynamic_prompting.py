@@ -436,5 +436,9 @@ class Script(scripts.Script):
         p.prompt = original_prompt
         p.seed = original_seed
 
+        logger.debug("Finall positive prompts check")
+        for prompt in p.all_prompts:
+            logger.debug(f"Prompt: {prompt}")
+
 
 wildcard_manager.ensure_directory()
