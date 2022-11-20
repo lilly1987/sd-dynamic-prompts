@@ -350,6 +350,7 @@ class Script(scripts.Script):
         try:
             logger.debug("Creating positive generator")
             generator = self._create_generator(
+                "Positive prompt generator",
                 original_prompt,
                 original_seed,
                 is_feeling_lucky=is_feeling_lucky,
@@ -436,7 +437,7 @@ class Script(scripts.Script):
         p.prompt = original_prompt
         p.seed = original_seed
 
-        logger.debug("Finall positive prompts check")
+        logger.debug("Final positive prompts check")
         for prompt in p.all_prompts:
             logger.debug(f"Prompt: {prompt}")
 
