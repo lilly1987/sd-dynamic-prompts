@@ -7,8 +7,13 @@ import random
 from prompts import constants
 from prompts.wildcardmanager import WildcardManager
 from . import PromptGenerator, re_combinations, re_wildcard
+from modules.shared import opts,state
+
+is_debug = getattr(opts, "is_debug", False)
 
 logger = logging.getLogger(__name__)
+logger.handlers.clear()
+logger.setLevel(logging.DEBUG)
 
 MAX_SELECTION_ITERATIONS = 100
 
@@ -190,12 +195,24 @@ class RandomPromptGenerator(PromptGenerator):
                 raise Exception(
                     "Too many recursions, something went wrong with generating the prompt"
                 )
-
-            prompt = self.pick_variant(old_prompt)
+            
+            counter1 = 0
+            while True:
+                counter1 += 1
+                if counter1 > constants.MAX_RECURSIONS:
+                    raise Exception(
+                        "Too many recursions, something went wrong with generating the prompt"
+                    )
+                    
+                prompt = self.pick_variant(old_prompt)
+                logger.debug(f"Prompt v: {prompt}")
+                if prompt == old_prompt:
+                    break
+                old_prompt = prompt
+            
             prompt = self.pick_wildcards(prompt)
-
+            logger.debug(f"Prompt w: {prompt}")
             if prompt == old_prompt:
-                logger.info(f"Prompt: {prompt}")
                 return prompt
             old_prompt = prompt
 
