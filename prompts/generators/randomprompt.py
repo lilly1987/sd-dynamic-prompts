@@ -17,9 +17,9 @@ logger.setLevel(logging.DEBUG)
 # 일반 핸들러. 할 필요 업음. 이미 메인에서 출력해줌
 streamFormatter = logging.Formatter("sp %(asctime)s %(levelname)s\t: %(message)s")
 streamHandler = logging.StreamHandler()
-if is_debug :
-    streamHandler.setLevel(logging.DEBUG)
-else:
+#if is_debug :
+#    streamHandler.setLevel(logging.DEBUG)
+#else:
     streamHandler.setLevel(logging.INFO)
 #streamHandler.setLevel(logging.WARNING)
 streamHandler.setFormatter(streamFormatter)
