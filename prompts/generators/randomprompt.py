@@ -20,7 +20,7 @@ streamHandler = logging.StreamHandler()
 #if is_debug :
 #    streamHandler.setLevel(logging.DEBUG)
 #else:
-    streamHandler.setLevel(logging.INFO)
+streamHandler.setLevel(logging.INFO)
 #streamHandler.setLevel(logging.WARNING)
 streamHandler.setFormatter(streamFormatter)
 logger.addHandler(streamHandler)
