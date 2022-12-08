@@ -32,7 +32,6 @@ from ui import wildcards_tab
 
 
 logger = logging.getLogger(__name__)
-
 logger.setLevel(logging.INFO)
 
 is_debug = getattr(opts, "is_debug", False)
@@ -111,7 +110,6 @@ def new_generation(prompt, p) -> PromptGenerator:
 
 
 class Script(scripts.Script):
-
     def _create_generator(
         self,
         original_prompt,
@@ -302,42 +300,6 @@ class Script(scripts.Script):
             no_image_generation,
         ]
 
-
-    def process_batch(
-        self,
-        p,
-        info,
-        is_enabled,
-        is_combinatorial,
-        combinatorial_batches,
-        is_magic_prompt,
-        is_feeling_lucky,
-        is_attention_grabber,
-        magic_prompt_length,
-        magic_temp_value,
-        use_fixed_seed,
-        write_prompts,
-        unlink_seed_from_prompt,
-        disable_negative_prompt,
-        enable_jinja_templates,
-        no_image_generation,
-        *args,
-        **kwargs,
-    ):
-        if not is_enabled:
-            logger.debug("Dynamic prompts disabled - exiting")
-            return p
-
-        generator = self._negative_prompt_generator
-
-        try:
-            p.all_negative_prompts = generator.generate(1)
-        except GeneratorException as e:
-            logger.exception(e)
-            all_prompts = [str(e)]
-            p.all_negative_prompts = str(e)
-
-
     def process(
         self,
         p,
@@ -427,12 +389,10 @@ class Script(scripts.Script):
 
             all_negative_prompts = all_negative_prompts[:total_prompts]
 
-
         except GeneratorException as e:
             logger.exception(e)
             all_prompts = [str(e)]
             all_negative_prompts = [str(e)]
-
 
         updated_count = len(all_prompts)
         p.n_iter = math.ceil(updated_count / p.batch_size)
@@ -473,7 +433,6 @@ class Script(scripts.Script):
 
         p.prompt = original_prompt
         p.seed = original_seed
-
 
 
 wildcard_manager.ensure_directory()

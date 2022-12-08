@@ -1,6 +1,6 @@
 from __future__ import annotations
 from . import PromptGenerator
-
+import random
 import re
 from tqdm import trange
 
