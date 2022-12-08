@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 logger.handlers.clear()
 logger.setLevel(logging.DEBUG)
 
+
 MAX_SELECTION_ITERATIONS = 100
 
 
@@ -86,6 +87,27 @@ class CombinationCollector:
 
         return collected
 
+
+# 일반 핸들러. 할 필요 업음. 이미 메인에서 출력해줌
+streamFormatter = logging.Formatter("sp %(asctime)s %(levelname)s\t: %(message)s")
+streamHandler = logging.StreamHandler()
+#if is_debug :
+#    streamHandler.setLevel(logging.DEBUG)
+#else:
+streamHandler.setLevel(logging.INFO)
+#streamHandler.setLevel(logging.WARNING)
+streamHandler.setFormatter(streamFormatter)
+logger.addHandler(streamHandler)
+
+# 파일 핸들러
+fileFormatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
+fileHandler = logging.FileHandler(f"{__name__}.log")
+fileHandler.setLevel(logging.DEBUG)
+fileHandler.setFormatter(fileFormatter)
+logger.addHandler(fileHandler)
+
+if is_debug :
+    logger.debug('==== DEBUG ====')
 
 class RandomPromptGenerator(PromptGenerator):
     def __init__(
